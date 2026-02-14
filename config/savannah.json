@@ -1,0 +1,12 @@
+{
+  "selectors": {
+    "dropdown_button": "#student-switch-curriculum .btn-group > div",
+    "dropdown_menu": ".dropdown-menu-400.fs-5.dropdown-menu",
+    "course_items": ".dropdown-menu-400.fs-5.dropdown-menu li",
+    "course_link": "a.dropdown-item",
+    "course_name": "a.dropdown-item .fs-4.fw-medium, a.dropdown-item span:first-child",
+    "course_average": "a.dropdown-item .text-muted .fw-medium, a.dropdown-item span:contains('Average')",
+    "active_indicator": ".fa-check",
+    "current_course": "#student-switch-curriculum .fs-4.fw-semibold"
+  }
+}

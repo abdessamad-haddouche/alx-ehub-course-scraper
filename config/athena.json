@@ -1,0 +1,11 @@
+{
+  "selectors": {
+    "container": ".flex.gap-6.my-4",
+    "name": {
+      "primary": ".block.lg\\:hidden .text-lg.font-semibold.text-heading",
+      "secondary": ".hidden.lg\\:flex .text-xl.font-semibold.text-heading span"
+    },
+    "description": "p.text-sm.text-popover-foreground",
+    "button": "button"
+  }
+}

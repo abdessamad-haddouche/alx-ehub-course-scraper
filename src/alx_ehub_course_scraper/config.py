@@ -1,4 +1,3 @@
-# src/alx_ehub_course_scraper/config.py
 import json
 import os
 from pathlib import Path
@@ -27,6 +26,25 @@ class Config:
         if auth_file.exists():
             with open(auth_file, 'r') as f:
                 self.data['auth'] = json.load(f)
+        
+        # Load courses config if it exists
+        courses_file = self.config_dir / "courses.json"
+        if courses_file.exists():
+            with open(courses_file, 'r') as f:
+                self.data['courses'] = json.load(f)
+        
+        # ===== ADD THIS =====
+        # Load savannah config if it exists
+        savannah_file = self.config_dir / "savannah.json"
+        if savannah_file.exists():
+            with open(savannah_file, 'r') as f:
+                self.data['savannah'] = json.load(f)
+        
+        # Load athena config if it exists
+        athena_file = self.config_dir / "athena.json"
+        if athena_file.exists():
+            with open(athena_file, 'r') as f:
+                self.data['athena'] = json.load(f)
     
     def get_driver_cache_path(self, browser: str) -> str:
         """Get driver cache path with environment override"""

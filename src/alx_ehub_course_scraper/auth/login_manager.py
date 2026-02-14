@@ -608,6 +608,43 @@ class SessionManager:
         except Exception as e:
             logger.error(f"Failed to load cookies for {email}: {e}")
             return None
+        
+    def clear_session(self, email: str) -> bool:
+        """
+        Clear all session data for a specific user
+        
+        Args:
+            email: User email
+            
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        try:
+            user_dir = self._get_user_dir(email)
+            
+            # Delete session file
+            session_file = user_dir / "session.pkl"
+            if session_file.exists():
+                session_file.unlink()
+                logger.debug(f"Deleted session file: {session_file}")
+            
+            # Delete metadata file
+            metadata_file = user_dir / "metadata.json"
+            if metadata_file.exists():
+                metadata_file.unlink()
+                logger.debug(f"Deleted metadata file: {metadata_file}")
+            
+            # Remove user directory if empty
+            if user_dir.exists() and not any(user_dir.iterdir()):
+                user_dir.rmdir()
+                logger.debug(f"Removed empty directory: {user_dir}")
+            
+            logger.info(f"Session cleared for {email}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to clear session for {email}: {e}")
+            return False
     
     def list_sessions(self) -> List[Dict[str, Any]]:
         """List all available sessions with metadata"""

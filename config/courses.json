@@ -1,0 +1,38 @@
+{
+  "course_page": {
+    "url": "https://ehub.alxafrica.com/",
+    "wait_for": ".flex.gap-6.my-4",
+    "timeout": 10
+  },
+  "course_selectors": {
+    "container": ".flex.gap-6.my-4",
+    "name": {
+      "primary": ".block.lg\\:hidden .text-lg.font-semibold.text-heading",
+      "secondary": ".hidden.lg\\:flex .text-xl.font-semibold.text-heading span",
+      "fallback": ".text-lg.font-semibold.text-heading, .text-xl.font-semibold.text-heading span"
+    },
+    "description": "p.text-sm.text-popover-foreground",
+    "metadata": {
+      "container": ".flex.flex-wrap.gap-1.items-center",
+      "date": "span:first-child",
+      "duration": "span:last-child"
+    },
+    "status_badge": {
+      "selector": ".text-success",
+      "completed_text": "Completed"
+    },
+    "button": {
+      "selector": "button",
+      "continue_text": "Continue"
+    },
+    "icon": "svg:first-child"
+  },
+  "link_extraction": {
+    "strategies": [
+      { "type": "attribute", "attribute": "href", "condition": "tag_name=a" },
+      { "type": "attribute", "attribute": "onclick", "regex": "['\"](/[^'\"]*)['\"]" },
+      { "type": "attribute", "attribute": "data-url" },
+      { "type": "parent", "parent_tag": "a", "attribute": "href" }
+    ]
+  }
+}
