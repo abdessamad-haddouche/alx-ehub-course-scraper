@@ -148,6 +148,9 @@ class DriverManager:
         window_size = self.config.data['browser_defaults']['window_size']
         options.add_argument(f'--width={window_size["width"]}')
         options.add_argument(f'--height={window_size["height"]}')
+
+        # Add this to ensure proper window size
+        options.set_preference("layout.css.devPixelsPerPx", "1.0")
         
         if stealth or self.config.data['browser_defaults']['stealth_mode']:
             options.set_preference("dom.webdriver.enabled", False)

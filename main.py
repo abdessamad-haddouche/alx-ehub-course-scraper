@@ -1,8 +1,9 @@
 """
 MAIN.PY - ALX EHUB COURSE SCRAPER
-Simple Selenium setup to visit ALX ehub
+Scraper with logging and authentication
 """
 import sys
+import logging
 from pathlib import Path
 from datetime import datetime
 
@@ -11,80 +12,154 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from alx_ehub_course_scraper.driver_manager import DriverManager
 from alx_ehub_course_scraper.config import Config
+from alx_ehub_course_scraper.auth.login_manager import LoginManager, AuthStatus
 
-def visit_alx_ehub():
-    """Setup Selenium and visit ALX ehub"""
-    print("🎯 ALX EHUB COURSE SCRAPER")
-    print("=" * 40)
+def setup_logging():
+    """Configure logging for the entire application"""
     
-    # Initialize config and driver manager
+    # Create logs directory
+    log_dir = Path("logs")
+    log_dir.mkdir(exist_ok=True)
+    
+    # Create log filename with timestamp
+    log_file = log_dir / f"scraper_{datetime.now().strftime('%Y%m%d')}.log"
+    
+    # Configure logging format
+    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    date_format = '%Y-%m-%d %H:%M:%S'
+    
+    # Configure root logger
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format=log_format,
+        datefmt=date_format,
+        handlers=[
+            logging.FileHandler(log_file, encoding='utf-8'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    
+    # Set third-party loggers to WARNING to reduce noise
+    logging.getLogger("selenium").setLevel(logging.WARNING)
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
+    logging.getLogger("webdriver_manager").setLevel(logging.WARNING)
+    
+    logger = logging.getLogger(__name__)
+    logger.info("=" * 60)
+    logger.info("LOGGING CONFIGURED SUCCESSFULLY")
+    logger.info(f"Log file: {log_file}")
+    logger.info("=" * 60)
+    
+    return logger
+
+def test_auth(driver, config, logger):
+    """
+    Test authentication flow with provided driver and config
+    
+    Args:
+        driver: WebDriver instance
+        config: Config instance
+        logger: Logger instance
+    
+    Returns:
+        bool: True if authentication successful
+    """
+    print("\n🔐 TESTING AUTHENTICATION FLOW")
+    print("=" * 50)
+    
+    try:
+        # Log configuration
+        logger.info("Starting authentication test")
+        logger.debug(f"Browser: {config.default_browser}")
+        logger.debug(f"Headless mode: {config.headless_mode}")
+        
+        # Initialize login manager
+        print("\n🔑 Initializing LoginManager...")
+        login_manager = LoginManager(driver, config.data)
+        logger.info("LoginManager initialized")
+        
+        # Test authentication
+        print("\n🔄 Testing authentication...")
+        auth_result = login_manager.ensure_logged_in()
+        
+        # Handle result
+        if auth_result.status in [AuthStatus.SESSION_RESTORED, AuthStatus.AUTHENTICATED]:
+            print(f"\n✅ {auth_result.message}")
+            if auth_result.user_id:
+                print(f"   User ID: {auth_result.user_id}")
+            if auth_result.session_file:
+                print(f"   Session: {auth_result.session_file}")
+            
+            logger.info(f"Authentication successful: {auth_result.status.value}")
+            
+            # List sessions
+            print("\n📊 Listing saved sessions:")
+            sessions = login_manager.session_manager.list_sessions()
+            if sessions:
+                for session in sessions:
+                    print(f"   - {session['email']} (last used: {session['last_used'][:10]})")
+            else:
+                print("   No saved sessions found")
+            
+            return True
+        else:
+            print(f"\n❌ {auth_result.message}")
+            logger.error(f"Authentication failed: {auth_result.message}")
+            return False
+        
+    except Exception as e:
+        logger.exception("Error during authentication test")
+        print(f"\n❌ Error: {e}")
+        return False
+
+def main():
+    """Main entry point"""
+    # Setup logging first
+    logger = setup_logging()
+    
+    print("\n🎯 ALX EHUB COURSE SCRAPER - AUTH TEST")
+    print("=" * 60)
+    
+    # Initialize config and driver manager ONCE
+    logger.info("Initializing configuration")
     config = Config()
     driver_manager = DriverManager()
     
-    # Target URL
-    url = "https://ehub.alxafrica.com/"
-    
-    # Create output folder for this session
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_folder = Path(f"data/ehub_capture_{timestamp}")
-    output_folder.mkdir(parents=True, exist_ok=True)
-    print(f"📁 Output folder: {output_folder}")
-    
     driver = None
     try:
-        print("🌐 Starting browser...")
-        print(f"   Browser: {config.default_browser}")
-        print(f"   Headless: {config.headless_mode}")
-        print(f"   Stealth mode: {config.data['browser_defaults']['stealth_mode']}")
-        
-        # Get the driver with your configuration
+        print("\n🌐 Starting browser...")
         driver = driver_manager.get_driver(
             browser=config.default_browser,
             headless=config.headless_mode,
             stealth=config.data['browser_defaults']['stealth_mode']
         )
+        logger.info("Browser started successfully")
         
-        print(f"📥 Loading: {url}")
-        driver.get(url)
+        # Run authentication test
+        success = test_auth(driver, config, logger)
         
-        # Wait for page to load
-        import time
-        time.sleep(3)
-        
-        # Save page info
-        print(f"📄 Page title: {driver.title}")
-        print(f"🌐 Current URL: {driver.current_url}")
-        
-        # Save HTML
-        html_file = output_folder / "page.html"
-        with open(html_file, "w", encoding="utf-8") as f:
-            f.write(driver.page_source)
-        print(f"💾 HTML saved: {html_file}")
-        
-        # Save screenshot
-        screenshot = output_folder / "page.png"
-        driver.save_screenshot(str(screenshot))
-        print(f"📸 Screenshot saved: {screenshot}")
-        
-        # Keep browser open for a moment
-        print("\n⏱️  Keeping browser open for 10 seconds...")
-        time.sleep(10)
-        
-        print(f"\n✅ SUCCESS! Check {output_folder} for captured data")
+        if success:
+            print("\n✨ Authentication test PASSED!")
+            logger.info("Authentication test completed successfully")
+            
+            # Keep browser open for inspection
+            print("\n⏱️  Browser will stay open for 15 seconds...")
+            logger.info("Waiting for manual inspection")
+            import time
+            time.sleep(15)
+        else:
+            print("\n❌ Authentication test FAILED!")
+            logger.error("Authentication test failed")
         
     except Exception as e:
-        print(f"❌ ERROR: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.exception("Fatal error in main")
+        print(f"\n💥 Fatal error: {e}")
         
     finally:
         if driver:
             driver.quit()
+            logger.info("Browser closed")
             print("🧹 Browser closed")
-
-def main():
-    """Main entry point"""
-    visit_alx_ehub()
 
 if __name__ == "__main__":
     main()

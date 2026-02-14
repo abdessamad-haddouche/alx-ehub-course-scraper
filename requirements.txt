@@ -1,7 +1,18 @@
+# Core dependencies
 selenium==4.15.2
-beautifulsoup4==4.12.2
-requests==2.31.0
-schedule==1.2.0
-python-telegram-bot==20.6
-PyYAML==6.0.1
 webdriver-manager==4.0.1
+requests==2.31.0
+
+# Authentication & config
+python-dotenv==1.0.0
+
+# Data processing
+beautifulsoup4==4.12.2
+lxml==4.9.3 
+
+# Utilities
+schedule==1.2.0 
+PyYAML==6.0.1
+
+# Telegram bot
+python-telegram-bot==20.6

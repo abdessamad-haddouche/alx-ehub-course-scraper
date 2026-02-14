@@ -1,3 +1,4 @@
+# src/alx_ehub_course_scraper/config.py
 import json
 import os
 from pathlib import Path
@@ -21,9 +22,11 @@ class Config:
         with open(settings_file, 'r') as f:
             self.data = json.load(f)
         
-        # TODO: Load other configs when needed
-        # websites_file = self.config_dir / "websites.json"
-        # candidates_file = self.config_dir / "candidates.json"
+        # Load auth config if it exists
+        auth_file = self.config_dir / "auth.json"
+        if auth_file.exists():
+            with open(auth_file, 'r') as f:
+                self.data['auth'] = json.load(f)
     
     def get_driver_cache_path(self, browser: str) -> str:
         """Get driver cache path with environment override"""
@@ -51,3 +54,8 @@ class Config:
     def headless_mode(self) -> bool:
         env_value = os.getenv('HEADLESS_MODE', str(self.data['browser_defaults']['headless'])).lower()
         return env_value == 'true'
+    
+    @property
+    def auth_config(self) -> Dict[str, Any]:
+        """Get auth configuration"""
+        return self.data.get('auth', {})

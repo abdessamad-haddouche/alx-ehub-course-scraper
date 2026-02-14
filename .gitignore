@@ -429,6 +429,10 @@ local_settings.py
 planning/
 planning/**
 
+# Data directory and all its contents
+data/
+data/**
+
 # Experimental features
 experimental/
 prototype/
