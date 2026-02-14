@@ -1,0 +1,447 @@
+# ============================================================================
+# PYTHON & PACKAGING
+# ============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# ============================================================================
+# VIRTUAL ENVIRONMENTS
+# ============================================================================
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# Conda environments
+.conda/
+
+# ============================================================================
+# SELENIUM & WEBDRIVER SPECIFIC
+# ============================================================================
+
+# WebDriver binaries
+drivers/
+webdrivers/
+chromedriver*
+geckodriver*
+msedgedriver*
+safaridriver*
+operadriver*
+
+# Browser profiles and data
+browser_profiles/
+chrome_profile/
+firefox_profile/
+edge_profile/
+user_data_dir/
+
+# Screenshots and test artifacts
+screenshots/
+test_artifacts/
+test_output/
+*.png
+*.jpg
+*.jpeg
+*.gif
+!docs/**/*.png
+!docs/**/*.jpg
+!examples/**/*.png
+
+# Video recordings
+recordings/
+*.mp4
+*.avi
+*.mov
+
+# Selenium logs
+selenium.log
+selenium*.log
+webdriver.log
+browser.log
+automation.log
+
+# Browser debugging
+chrome_debug.log
+firefox_debug.log
+
+# HAR files (HTTP Archive)
+*.har
+
+# Performance logs
+performance_*.json
+network_*.json
+timeline_*.json
+
+# ============================================================================
+# CONFIGURATION & SECRETS
+# ============================================================================
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.staging
+.env.backup
+
+# Configuration overrides
+config_local.yaml
+config_override.yaml
+settings_local.yaml
+*_local.yaml
+*_override.yaml
+
+# Secret files
+secrets.json
+secrets.yaml
+secrets.yml
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+
+# API keys and tokens
+.api_keys
+.tokens
+.credentials
+auth_tokens.json
+
+# Proxy configurations
+proxy_config.json
+proxy_list.txt
+
+# ============================================================================
+# CACHE & TEMPORARY FILES
+# ============================================================================
+
+# Package cache
+.package_cache/
+.driver_cache/
+.browser_cache/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+*.tmp
+*.temp
+
+# Download cache
+downloads_cache/
+driver_downloads/
+
+# Session files
+.sessions/
+session_*.json
+
+# ============================================================================
+# DOCUMENTATION
+# ============================================================================
+
+# Sphinx documentation
+docs/_build/
+docs/build/
+_build/
+
+# MkDocs
+site/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# ============================================================================
+# IDEs & EDITORS
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vimrc.local
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ============================================================================
+# OPERATING SYSTEMS
+# ============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Icon?
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================================================================
+# LOGS & MONITORING
+# ============================================================================
+
+# Log files
+*.log
+logs/
+log/
+*.log.*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ============================================================================
+# DOCKER & CONTAINERIZATION
+# ============================================================================
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# ============================================================================
+# TESTING & CI/CD
+# ============================================================================
+
+# Test artifacts
+test_reports/
+test_results/
+allure-results/
+allure-report/
+
+# Performance test results
+performance_results/
+load_test_results/
+
+# CI/CD
+.github/workflows/*.local.yml
+.gitlab-ci.local.yml
+
+# ============================================================================
+# DEVELOPMENT & DEBUG
+# ============================================================================
+
+# Debug files
+debug/
+debug_*.json
+debug_*.log
+
+# Profiling
+*.prof
+*.pstats
+
+# Memory dumps
+*.dump
+core.*
+
+# ============================================================================
+# PACKAGE DISTRIBUTION
+# ============================================================================
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Wheel files
+*.whl
+
+# Source distribution
+*.tar.gz
+
+# ============================================================================
+# SELENIUM FORGE SPECIFIC
+# ============================================================================
+
+# Driver installation directory
+selenium_forge_drivers/
+installed_drivers/
+
+# Configuration backups
+config_backup/
+*.yaml.bak
+*.yml.bak
+
+# User templates
+user_templates/
+custom_templates/
+
+# Runtime state
+.runtime_state/
+.session_state/
+
+# Performance benchmarks
+benchmarks/
+performance_data/
+
+# Example outputs (keep example code, ignore outputs)
+examples/output/
+examples/screenshots/
+examples/downloads/
+
+# ============================================================================
+# MISCELLANEOUS
+# ============================================================================
+
+# Backup files
+*.backup
+*.bak
+*.old
+*.orig
+*.save
+
+# Patch files
+*.patch
+*.diff
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# OS generated files
+Thumbs.db
+
+# Local configuration files
+local_config.py
+local_settings.py
+.local
+
+# ============================================================================
+# CUSTOM PROJECT RULES
+# ============================================================================
+
+# Planning directory and all contents
+planning/
+planning/**
+
+# Experimental features
+experimental/
+prototype/
+
+# Files ending with numbers
+*[0-9]
+*[0-9].*
+*[0-9][0-9]
+*[0-9][0-9].*
+*[0-9][0-9][0-9]
+*[0-9][0-9][0-9].*
+
+# Folders ending with numbers
+env[0-9]*
+venv[0-9]*
+test[0-9]*
